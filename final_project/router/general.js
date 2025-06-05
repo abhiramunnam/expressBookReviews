@@ -25,12 +25,30 @@ public_users.post("/register", (req, res) => {
   
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
+public_users.get('/', function (req, res) {
+    // Log before promise
+    console.log("Before calling promise");
+  
+    // Create promise that resolves after 5 seconds
+    let myPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("Promise resolved");
+      }, 5000);
+    });
+  
+    // Handle promise resolution with then
+    myPromise.then((successMessage) => {
+      console.log("From Callback: " + successMessage);
+    });
+  
+    // Log after promise is called
+    console.log("After calling promise");
+  
+    // Send books list immediately
     const booksList = JSON.stringify(books, null, 5);
     res.send(booksList);
-  //Write your code here
-
-});
+  });
+  
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn', function (req, res) {
